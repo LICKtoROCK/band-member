@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
+use App\User;
 use App\Post;
 
 class PostsController extends Controller
@@ -95,5 +97,28 @@ class PostsController extends Controller
         return redirect('/');
     }
     
+    public function seek($id)
+    {
+        $post=Post::findOrFail($id);
+        
+        return view('posts.search',[
+            'post'=>$post,
+        ]);
+    }
+    
+    public function search(Request $request)
+    {
+        $data=[];
+        
+            $params=$request->all();
 
+            $posts=Post::search($params)->paginate(10);
+
+            $data=[
+                'posts'=>$posts,
+                'params'=>$params,
+            ];
+            
+        return view('posts.search',$data);
+    }
 }

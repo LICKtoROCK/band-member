@@ -7,7 +7,8 @@
                         過去の投稿
                     </div>
                     <div class="card-body">
-                        {!! nl2br(e($post->created_at)) !!}<br>
+                        {!! nl2br(e($user->name)) !!}
+                        {!! nl2br(e($post->updated_at)) !!}<br>
                         {!! nl2br(e($post->prefectures)) !!}<br>
                         <span>募集パート：</span>
                         @if ($post->vocal)<span class="">ボーカル　</span> @endif
@@ -27,22 +28,15 @@
                             <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-link">編集</a>
                         </div>
                         
-                        {{-- {!! Form::open(['route'=>['posts.edit',$post->id],'method'=>'edit']) !!}
-                            <div>
-                                {!! Form::submit('編集',['class'=>'btn btn-link']) !!}
-                            </div>    
-                            {!! Form::close() !!} --}}
-                    
-                            {!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'delete']) !!}
-                            <div>
-                                {!! Form::submit('削除',['class'=>'btn btn-link']) !!}
-                            </div>    
-                            {!! Form::close() !!} 
+                        {!! Form::open(['route'=>['posts.destroy',$post->id],'method'=>'delete']) !!}
+                        <div>
+                            {!! Form::submit('削除',['class'=>'btn btn-link']) !!}
+                        </div>    
+                        {!! Form::close() !!} 
                     </div>
                 </div>
             @endif
         @endforeach
     </div>
-    
     {{ $posts->links() }}
 @endif

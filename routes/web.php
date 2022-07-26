@@ -23,8 +23,10 @@ Route::get('/','PostsController@index')->name('toppage');
 Route::group(['middleware'=>['auth']],function(){
     Route::resource('posts','PostsController',['only'=>['store','create','edit','update','destroy']]);
     
-   
-    
+Route::post('posts/{id}','PostsController@seek')->name('posts.seek');
+Route::get('posts/search','PostsController@search')->name('posts.search');
+
+
 });
 
 

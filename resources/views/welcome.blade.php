@@ -15,7 +15,7 @@
                 {!! link_to_route('posts.create','メンバーを募集する',[],['class'=>'btn btn-primary btn-lg']) !!}
             </div>    
             <div class="col-4">
-                <button type="button" class="btn btn-success btn-lg">メンバーを探す</button>
+                {!! link_to_route('posts.search','メンバーを探す',[],['class'=>'btn btn-success btn-lg']) !!}
             </div>
         </div>
         <div class="row">
