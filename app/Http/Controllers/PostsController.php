@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\User;
 use App\Post;
+use App\Comment;
 
 class PostsController extends Controller
 {
@@ -118,7 +119,18 @@ class PostsController extends Controller
                 'posts'=>$posts,
                 'params'=>$params,
             ];
-            
         return view('posts.search',$data);
+    }
+    
+    public function show($id)
+    {
+        $posts=Post::findOrFail($id);
+        $comments = $posts->comments()->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('posts.show',[
+            'post'=>$posts,
+            'comments'=>$comments,
+        ]);
+      
     }
 }

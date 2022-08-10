@@ -20,12 +20,13 @@ Route::get('logout','Auth\LoginController@logout')->name('logout.get');
     
 Route::get('/','PostsController@index')->name('toppage');
 
-Route::group(['middleware'=>['auth']],function(){
-    Route::resource('posts','PostsController',['only'=>['store','create','edit','update','destroy']]);
-    
 Route::post('posts/{id}','PostsController@seek')->name('posts.seek');
 Route::get('posts/search','PostsController@search')->name('posts.search');
 
+Route::group(['middleware'=>['auth']],function(){
+    Route::resource('posts','PostsController');
+    Route::delete('comments/{comment_id}','CommentsController@destroy')->name('comments.destroy');
+    Route::resource('posts.comments','CommentsController',['only'=>['store','create']])->shallow();
 
 });
 

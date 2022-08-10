@@ -28,6 +28,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    
     public function scopeSearch(Builder $query,array $params)
     {
         if(!empty($params['prefectures'])) $query->where('prefectures',$params['prefectures']);

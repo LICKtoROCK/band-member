@@ -2,7 +2,6 @@
 
 @section('title')
     <title>メンバー募集</title>
-@endsection
 
 @section('heading')
     <h2>メンバーを募集する</h2>
