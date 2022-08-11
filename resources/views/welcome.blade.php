@@ -26,6 +26,9 @@
         <div class="mt-5">
             @include('posts.posts')
         </div>
+        <div class="mt-5">
+            @include('comments.posts')
+        </div>
     @else
         <div class="row">
             <div class="col-4 offset-4 mt-5">

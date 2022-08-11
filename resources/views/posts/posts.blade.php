@@ -24,6 +24,9 @@
                         {!! nl2br(e($post->pr)) !!}
                     </div>
                     <div class="d-flex justify-content-end">
+                        <a href="{{ route('posts.show',['post'=>$post->id]) }}" class="btn btn-link">
+                            コメントを見る
+                        </a>
                         <div class="btn-group">
                             <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-link">編集</a>
                         </div>

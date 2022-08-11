@@ -44,5 +44,5 @@ class CommentsController extends Controller
         }
         return redirect(route('posts.show',$post_id));
     }
-
+    
 }

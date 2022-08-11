@@ -25,7 +25,7 @@
                     {!! nl2br(e($post->pr)) !!}
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('posts.show',['post'=>$post->id]) }}" class="btn btn-link">
-                        詳細
+                            詳細
                         </a>
                     </div>
                 </li>

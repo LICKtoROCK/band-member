@@ -26,7 +26,7 @@ Route::get('posts/search','PostsController@search')->name('posts.search');
 Route::group(['middleware'=>['auth']],function(){
     Route::resource('posts','PostsController');
     Route::delete('comments/{comment_id}','CommentsController@destroy')->name('comments.destroy');
-    Route::resource('posts.comments','CommentsController',['only'=>['store','create']])->shallow();
+    Route::resource('posts.comments','CommentsController',['only'=>['store','create','index']])->shallow();
 
 });
 

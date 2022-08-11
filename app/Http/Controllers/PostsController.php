@@ -16,11 +16,18 @@ class PostsController extends Controller
     {
         $data=[];
         if(\Auth::check()){
-            $user=\Auth::user();
-            $posts=$user->posts()->orderBy('created_at','desc')->paginate(10);
-            $data=[
+            $user = \Auth::user();
+            $posts = $user->posts()->orderBy('created_at','desc')->paginate(10);
+            
+            $userId = $user->id;
+            $commentedPosts = Post::whereHas('comments', function($query) use($userId) {
+                $query->where('user_id','=',$userId);
+            })->paginate(10);
+
+            $data = [
                 'user'=>$user,
-                'posts'=>$posts
+                'posts'=>$posts,
+                'comments'=>$commentedPosts
             ];
         }
 
@@ -126,7 +133,7 @@ class PostsController extends Controller
     {
         $posts=Post::findOrFail($id);
         $comments = $posts->comments()->orderBy('created_at', 'desc')->paginate(10);
-
+        
         return view('posts.show',[
             'post'=>$posts,
             'comments'=>$comments,
