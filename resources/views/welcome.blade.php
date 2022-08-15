@@ -10,7 +10,13 @@
 
 @section('content')
     @if(Auth::check())
-        <div class="row justify-content-center mt-4 offset-1">
+    <div class="container">
+        @if($unreadCommentsCount > 0)
+        <h4 class="row justify-content-center col-10 offset-1 mt-4 alert alert-warning" role="alert">
+            <div class="alert-link">あなたの投稿に{{ $unreadCommentsCount }}件の新着コメントがあります！</div>
+        </h4>
+        @endif
+        <div class="row justify-content-center mt-5 offset-1">
             <div class="col-4">
                 {!! link_to_route('posts.create','メンバーを募集する',[],['class'=>'btn btn-primary btn-lg']) !!}
             </div>    
@@ -36,6 +42,7 @@
                 {!! link_to_route('login','登録済の方はこちら（ログイン）',[],['class'=>'btn btn-link btn-lg btn-block']) !!}
             </div>
         </div>
+    </div>
     @endif
 @endsection        
        

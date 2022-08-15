@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<div class="card">
+<div class="card mt-5">
     <div class="card-body">
         {!! nl2br(e($post->user->name)) !!}
         {!! nl2br(e($post->updated_at)) !!}<br>

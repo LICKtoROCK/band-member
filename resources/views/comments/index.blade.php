@@ -1,6 +1,6 @@
 @if(count($comments)>0)
     <div class="form-group">
-        <div class="card">
+        <div class="card mt-4">
             <div class="card-header">
                 コメント一覧
             </div>

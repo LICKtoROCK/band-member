@@ -17,17 +17,25 @@ class PostsController extends Controller
         $data=[];
         if(\Auth::check()){
             $user = \Auth::user();
-            $posts = $user->posts()->orderBy('created_at','desc')->paginate(10);
             
+            $posts = $user->posts()->withCount([
+                'comments',
+                'comments as unread_comments_count' => function($query)  {
+                    $query->where('read',false);
+                },
+            ])->orderBy('created_at', 'desc')->paginate(10);
+            $unreadCommentsCount = $posts->sum('unread_comments_count');
+
             $userId = $user->id;
             $commentedPosts = Post::whereHas('comments', function($query) use($userId) {
                 $query->where('user_id','=',$userId);
-            })->paginate(10);
+            })->orderBy('created_at', 'desc')->paginate(10);
 
             $data = [
                 'user'=>$user,
                 'posts'=>$posts,
-                'comments'=>$commentedPosts
+                'comments'=>$commentedPosts,
+                'unreadCommentsCount'=>$unreadCommentsCount
             ];
         }
 
@@ -120,22 +128,28 @@ class PostsController extends Controller
         
             $params=$request->all();
 
-            $posts=Post::search($params)->paginate(10);
-
+            $posts=Post::search($params)->orderBy('created_at', 'desc')->paginate(10);
+        
             $data=[
                 'posts'=>$posts,
                 'params'=>$params,
             ];
+
         return view('posts.search',$data);
     }
     
     public function show($id)
     {
-        $posts=Post::findOrFail($id);
-        $comments = $posts->comments()->orderBy('created_at', 'desc')->paginate(10);
+        $post=Post::findOrFail($id);
+        $comments = $post->comments()->orderBy('created_at', 'desc')->paginate(10);
+
+        if(\Auth::id()===$post->user_id){
+            $post->comments()->where('read',false)
+            ->update(['read' => true]);
+        }
         
         return view('posts.show',[
-            'post'=>$posts,
+            'post'=>$post,
             'comments'=>$comments,
         ]);
       

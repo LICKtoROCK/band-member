@@ -1,5 +1,5 @@
 @if(count($posts)>0)
-    <div class="form-group">
+    <div class="form-group mt-4">
         <div class="card">
             <div class="card-header">
                 検索結果

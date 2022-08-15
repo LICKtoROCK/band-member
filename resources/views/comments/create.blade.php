@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<div class="card">
+<div class="card mt-4">
     <div class="card-body">
         {!! nl2br(e($post->user->name)) !!}
         {!! nl2br(e($post->updated_at)) !!}<br>
@@ -29,7 +29,7 @@
         {!! nl2br(e($post->pr)) !!}
     </div>
 </div>
-
+<div class="mt-4">
     {!! Form::model($post,['route'=>['posts.comments.store',$post->id]]) !!}
         
         {!! Form::label('comment','コメント') !!}
@@ -38,10 +38,10 @@
 　　　  <div class="col-2 offset-5 mt-5">
             {!! Form::submit('コメントを投稿',['class'=>'btn btn-danger btn-lg']) !!}
         </div>
-        {!! Form::close() !!}
-    
-    <div class="col-3 offset-9 mt-5">
-        {!! link_to_route('toppage','トップページへ戻る',[],['class'=>'btn btn-primary btn-lg']) !!}
-    </div>
+    {!! Form::close() !!}
+</div>    
+<div class="col-3 offset-9 mt-5">
+    {!! link_to_route('toppage','トップページへ戻る',[],['class'=>'btn btn-primary btn-lg']) !!}
+</div>
 
 @endsection

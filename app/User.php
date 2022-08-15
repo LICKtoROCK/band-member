@@ -47,8 +47,4 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
     
-    public function loadRelationshipCounts()
-    {
-        $this->loadCount('comments');
-    }
 }
