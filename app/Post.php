@@ -72,4 +72,13 @@ class Post extends Model
         return $query;
     }
     
+    public static function boot()
+    {
+        parent::boot();
+        
+        static::deleting(function($post){
+            $post->comments()->delete();
+        });
+    }
+    
 }
